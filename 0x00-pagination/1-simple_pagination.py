@@ -21,29 +21,25 @@ class Server:
             with open(self.DATA_FILE) as f:
                 reader = csv.reader(f)
                 dataset = [row for row in reader]
-            self.__dataset = dataset[0:]
+            self.__dataset = dataset[1:]
 
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-            """
-                Method for getting page
+        """
+            Method for getting page
+            Args:
+                :params @page [int] - The first argument
+                :params @page_size [int] - The second argument
 
-                Args:
-                    :params @page [int] - The first argument
-                    :params @page_size [int] - The second argument
+            Returns:
+                This function returns a list of list
+        """
+        assert type(page) is int and page > 0
+        assert type(page_size) is int and page_size > 0
+        value, j = index_range(page, page_size), self.__dataset
+        return [j[i] for i in range(value[0], value[1]) if i < len(j)]
 
-                Returns:
-                    This function returns a list of list
-            """
-            for i in [page, page_size]:
-                if type(i) != int :
-                    raise AssertionError
-                if i < 1:
-                    raise AssertionError
-            value = index_range(page, page_size)
-            check = lambda x : self.__dataset[x] if x < len(self.__dataset) else pass
-            return [check(i) for i in range(value[0], value[1])]
 
 def index_range(page: int, page_size: int) -> Tuple[int, int]:
     """
