@@ -49,7 +49,8 @@ class Server:
                 :params @page_size [int]: required number of records per page
 
             Returns:
-                This function returns a dictionary with the following key-value pairs
+                This function returns a dictionary with the following
+                key-value pairs
                     index: index of the first item in the current page
                     next_index: index of the first item in the next page
                     page_size: the current page size
