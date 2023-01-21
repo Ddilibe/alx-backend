@@ -56,7 +56,8 @@ class Server:
                     page_size: the current page size
                     data: actual page of the dataset
         """
-        dataset, data_length = self.indexed_dataset(), len(dataset)
+        dataset = self.indexed_dataset()
+        data_length = len(dataset)
         assert 0 <= index < data_length
         response, data = {}, []
         response['index'] = index
