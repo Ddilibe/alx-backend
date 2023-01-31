@@ -1,19 +1,22 @@
 #!/usr/bin/env python3
-""" Script to run a Flask Server """
-from flask import Flask, render_template
+"""
+Flask app
+"""
+from flask import (
+    Flask,
+    render_template,
+    request
+)
 from flask_babel import Babel
 
 
-class Config():
-    """ Class for Flask configuration 
-        Class Args:
-            :params @Languages [List] - List of languages
-            :params @BABEL_DEFAULT_LOCALE [str] - Default language to display
-            :params @BABEL_DEFAULT_TIMEZONE [str] - Default Timezone to display
+class Config(object):
+    """
+    Configuration for Babel
     """
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = "en"
-    BABEL_DEFAULT_TIMEZONE = 'UTC'
+    BABEL_DEFAULT_TIMEZONE = "UTC"
 
 
 app = Flask(__name__)
@@ -21,10 +24,21 @@ app.config.from_object(Config)
 babel = Babel(app)
 
 
+@babel.localeselector
+def get_locale():
+    """
+    Select and return best language match based on supported languages
+    """
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
+
+
 @app.route('/', strict_slashes=False)
-def index() -> render_template:
+def index() -> str:
+    """
+    Handles / route
+    """
     return render_template('2-index.html')
 
 
-if __name__ == '__main__':
-    app.run(port='5000', host='0.0.0.0', debug=True)
+if __name__ == "__main__":
+    app.run(port="5000", host="0.0.0.0", debug=True)
