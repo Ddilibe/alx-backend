@@ -16,7 +16,7 @@ const job = queue.create(
     }
 });
 
-job.on('completed', () => {
+job.on('complete', () => {
     process.stdout.write("Notification job complete\n");
 });
 job.on('failed', () => {
