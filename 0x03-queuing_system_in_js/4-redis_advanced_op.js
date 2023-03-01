@@ -15,12 +15,12 @@ const value = ["50", "80", "20", "20", "40","2"]
 const schoolName = "HolbertonSchools"
 
 for (var i = 0; i < keys.length; i++) {
-    client.hset(schoolName, keys[i], value[i], print);
+    client.hset("HolbertonSchools", keys[i], value[i], print);
 };
-client.hgetall(schoolName, (err, data) => {
+client.hgetall("HolbertonSchools", (err, data) => {
     if (err) {
         process.stdout.write(`${err}\n`);
         throw err;
     }
     process.stdout.write(`${data}\n`);
-})
+});
